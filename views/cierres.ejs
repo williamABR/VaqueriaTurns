@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Cierres de Turno</title>
+</head>
+<body>
+    <header>
+        <h1>Cierres de Turno</h1>
+    </header>
+    <main>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cajero</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cierres.forEach(cierre => { %>
+                    <tr>
+                        <td><%= cierre.id %></td>
+                        <td><%= cierre.cajero %></td>
+                        <td><%= cierre.fecha_inicio %></td>
+                        <td><%= cierre.fecha_fin %></td>
+                        <td>
+                            <a href="/cierre/<%= cierre.id %>">Ver Detalles</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <a href="/logout">Cerrar Sesión</a>
+    </main>
+</body>
+</html>

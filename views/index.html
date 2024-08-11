@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Movimientos</title>
+</head>
+<body>
+    <h1>Registro de Movimientos</h1>
+    <form action="/movimiento" method="POST">
+        <label for="tipo">Tipo:</label>
+        <select name="tipo" id="tipo">
+            <option value="Ingreso">Ingreso</option>
+            <option value="Gasto">Gasto</option>
+        </select><br>
+
+        <label for="medio_pago">Medio de Pago:</label>
+        <select name="medio_pago" id="medio_pago">
+            <option value="Efectivo">Efectivo</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Nequi">Nequi</option>
+        </select><br>
+
+        <label for="monto">Monto:</label>
+        <input type="number" name="monto" id="monto" step="0.01" required><br>
+
+        <label for="descripcion">Descripción:</label>
+        <input type="text" name="descripcion" id="descripcion"><br>
+
+        <button type="submit">Registrar Movimiento</button>
+    </form>
+
+    <h2>Cierre de Turno</h2>
+    <form action="/cierre-turno" method="POST">
+        <button type="submit">Cerrar Turno</button>
+    </form>
+</body>
+</html>

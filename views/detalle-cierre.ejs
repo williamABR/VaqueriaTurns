@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Cierre de Turno</title>
+</head>
+<body>
+    <header>
+        <h1>Detalle del Cierre de Turno</h1>
+    </header>
+    <main>
+        <h2>Cajero: <%= turno.cajero %></h2>
+        <p><strong>Fecha Inicio:</strong> <%= turno.fecha_inicio %></p>
+        <p><strong>Fecha Fin:</strong> <%= turno.fecha_fin %></p>
+        <p><strong>Efectivo Disponible:</strong> $<%= new Intl.NumberFormat('es-CO').format(turno.efectivo_disponible) %></p>
+        <p><strong>Total Tarjetas:</strong> $<%= new Intl.NumberFormat('es-CO').format(turno.total_tarjetas) %></p>
+        <p><strong>Total Nequi/Daviplata:</strong> $<%= new Intl.NumberFormat('es-CO').format(turno.total_nequi_daviplata) %></p>
+        <p><strong>Venta Total:</strong> $<%= new Intl.NumberFormat('es-CO').format(turno.venta_total) %></p>
+
+        <h3>Gastos</h3>
+        <ul>
+            <% let totalGastos = 0; %>
+            <% gastos.forEach(gasto => { %>
+                <li><strong><%= gasto.categoria %>:</strong> $<%= new Intl.NumberFormat('es-CO').format(gasto.monto) %> - <%= gasto.descripcion %></li>
+                <% totalGastos += gasto.monto; %>
+            <% }) %>
+        </ul>
+
+        <p><strong>Total de Gastos:</strong> $<%= new Intl.NumberFormat('es-CO').format(totalGastos) %></p>
+
+        <% 
+            const ingresosTotales = parseFloat(turno.efectivo_disponible) + parseFloat(turno.total_tarjetas) + parseFloat(turno.total_nequi_daviplata) + totalGastos;
+            const diferencia = ingresosTotales - parseFloat(turno.venta_total);
+            const resultado = diferencia >= 0 ? 'Sobró' : 'Faltó';
+        %>
+
+        <h3>Balance</h3>
+        <p><strong>Total Ingresos (Efectivo + Tarjetas + Nequi/Daviplata + Gastos):</strong> $<%= new Intl.NumberFormat('es-CO').format(ingresosTotales) %></p>
+        <p><strong>Diferencia:</strong> $<%= new Intl.NumberFormat('es-CO').format(Math.abs(diferencia)) %> - <%= resultado %> dinero</p>
+
+        <a href="/cierres">Volver a la lista de cierres</a>
+        <a href="/logout">Cerrar Sesión</a>
+
+    </main>
+</body>
+</html>

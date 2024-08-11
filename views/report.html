@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Cierre de Turno</title>
+</head>
+<body>
+    <h1>Reporte de Cierre de Turno</h1>
+    <p><strong>Balance Total:</strong> <span id="balance"></span></p>
+    
+    <h2>Detalles de Movimientos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Medio de Pago</th>
+                <th>Monto</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody id="movimientos">
+            <!-- Los movimientos se cargarán aquí -->
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/">Volver al Registro</a>
+</body>
+<script>
+    // Función para obtener y mostrar el reporte del cierre de turno
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/reporte-datos')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('balance').textContent = data.balance;
+
+                const movimientos = data.movimientos;
+                const tbody = document.getElementById('movimientos');
+
+                movimientos.forEach(mov => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${mov.tipo}</td>
+                        <td>${mov.medio_pago}</td>
+                        <td>${mov.monto}</td>
+                        <td>${mov.descripcion}</td>
+                        <td>${mov.fecha}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    });
+</script>
+</html>
